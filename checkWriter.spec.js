@@ -195,6 +195,50 @@ outOfRangeTests.forEach(elmt => {
 
 const specialCasesTest = [
   {
+    input: "234,243.01",
+    expected: "Invalid input type"
+  },
+  {
+    input: "874,345",
+    expected: "Invalid input type"
+  },
+  {
+    input: "234'243.01",
+    expected: "Invalid input type"
+  },
+  {
+    input: "874'345",
+    expected: "Invalid input type"
+  },
+  {
+    input: "123,21",
+    expected: "Invalid input type"
+  },
+  {
+    input: "0,01",
+    expected: "Invalid input type"
+  },
+  {
+    input: "123,21",
+    expected: "Invalid input type"
+  },
+  {
+    input: "0:01",
+    expected: "Invalid input type"
+  },
+  {
+    input: "123:21",
+    expected: "Invalid input type"
+  },
+  {
+    input: "0-01",
+    expected: "Invalid input type"
+  },
+  {
+    input: "234-23",
+    expected: "Invalid input type"
+  },
+  {
     input: null,
     expected: "Invalid input type"
   },

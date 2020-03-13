@@ -1,4 +1,4 @@
-const numberRegex = new RegExp('^[0-9]{0,6}.?[0-9]{0,2}$');
+const numberRegex = new RegExp('^[0-9]{0,6}[.]?[0-9]{0,2}$');
 
 function _hasLeadingElements(ele1 = null, ele2 = null, ele3 = null) {
   return !!(ele1 || ele2 || ele3);
