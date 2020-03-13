@@ -1,12 +1,11 @@
+const {
+  firstLetterUppercase,
+  zeroToNineConverter,
+  twoDigitConverter,
+  splitGivenAmount
+} = require('./utils');
+
 const UPPER_THRESHOLD = 999999.00;
-
-function isInt(n){
-  return Number(n) === n && n % 1 === 0;
-}
-
-function isFloat(n){
-  return Number(n) === n && n % 1 !== 0;
-}
 
 function parseToWordedOutput(input) {
   if (!input) {
@@ -24,11 +23,24 @@ function parseToWordedOutput(input) {
   if (parsedInput > UPPER_THRESHOLD) {
     return "Number out of range";
   }
-  if (!isFloat(parsedInput) || !isInt(parsedInput)) {
-    return "Input not a number";
-  }
 
-  return "to implement";
+  // REGEX!!!!!
+
+  const { cD, f2D, f3rdD, s2D, s3rdD } = splitGivenAmount(input);
+
+
+  const isEuroLabelSingular = false;
+  const isCentLabelSingular = false;
+
+  const preHundredThousand = s3rdD ? `${zeroToNineConverter(s3rdD)} hundred `: '';
+  const preThousand = s2D ? `${twoDigitConverter(s2D)} thousand `: '';
+  const preHundred = f3rdD ? `${zeroToNineConverter(f3rdD)} hundred `: '';
+  const euroLiteral = `${preHundredThousand}${preThousand}${preHundred}${twoDigitConverter(f2D)}`;
+  const centLiteral = twoDigitConverter(cD);
+
+  const euroLabel = isEuroLabelSingular ? "Euro" : "Euros";
+  const centLabel = isCentLabelSingular ? "cent" : "cents";
+  return `${firstLetterUppercase(euroLiteral)} ${euroLabel} and ${centLiteral} ${centLabel}`
 }
 
 module.exports = {

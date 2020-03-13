@@ -19,7 +19,7 @@ const documentExampleInputTests = [
   },
   {
     input: 978,
-    expected: "Nine hundred sevety eight Euros and zero cents"
+    expected: "Nine hundred seventy eight Euros and zero cents"
   },
   {
     input: 1.01,
