@@ -177,6 +177,10 @@ const outOfRangeTests = [
   {
     input: 1000264,
     expected: "Number out of range"
+  },
+  {
+    input: 20000264,
+    expected: "Number out of range"
   }
 ];
 
