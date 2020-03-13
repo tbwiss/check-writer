@@ -40,12 +40,12 @@ function parseToWordedOutput(number) {
     isSingularEuro
   } = splitGivenAmount(input);
 
-  const preHundredThousand = s3rdD ? `${zeroToNineConverter(s3rdD)} hundred `: "";
-  const preThousand = s2D ? `${twoDigitConverter(s2D)} thousand `: "";
-  const preHundred = f3rdD ? `${zeroToNineConverter(f3rdD)} hundred `: "";
+  const hundredThousandTrunk = s3rdD ? `${zeroToNineConverter(s3rdD)} hundred `: "";
+  const thousandTrunk = s2D ? `${twoDigitConverter(s2D)} thousand `: "";
+  const hundredTrunk = f3rdD ? `${zeroToNineConverter(f3rdD)} hundred `: "";
   const euroLiteral =
-    `${preHundredThousand}${preThousand}` +
-    `${preHundred}${twoDigitConverter(f2D)}`;
+    `${hundredThousandTrunk}${thousandTrunk}` +
+    `${hundredTrunk}${twoDigitConverter(f2D)}`;
   const centLiteral = twoDigitConverter(cD);
 
   const euroLabel = isSingularEuro ? "Euro" : "Euros";
