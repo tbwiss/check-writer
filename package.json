@@ -1,7 +1,7 @@
 {
   "name": "check-writer",
   "version": "1.0.0",
-  "description": "Given a Euro amount between 0 and 999,999.00 the program will output it worded represantation of an Euro amount on a check",
+  "description": "Given a Euro amount between 0 and 999,999.00 the program will output its worded representation of an Euro amount on a check",
   "main": "main.js",
   "scripts": {
     "test": "node testRunner.js ./src/**/*.spec.js"
