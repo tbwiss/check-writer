@@ -1,0 +1,11 @@
+{
+  "name": "check-writer",
+  "version": "1.0.0",
+  "description": "Given a Euro amount between 0 and 999,999.00 the program will output it worded represantation of an Euro amount on a check",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js ./*.spec.js"
+  },
+  "author": "Thomas Wiss",
+  "license": "ISC"
+}
