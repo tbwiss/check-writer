@@ -1,3 +1,9 @@
+const numberRegex = new RegExp('^[0-9]{0,6}.?[0-9]{0,2}$');
+
+function _hasLeadingElements(ele1 = null, ele2 = null, ele3 = null) {
+  return !!(ele1 || ele2 || ele3);
+}
+
 function _zeroIfHasNoLeadingElements(ele1 = null, ele2 = null) {
   return (ele1 || ele2) ? 0 : null;
 }
@@ -93,6 +99,7 @@ function splitGivenAmount(number) {
   const s2D = tempS2D ? `${posSplit[posSplit.length - 5]}${posSplit[posSplit.length - 4]}` : posSplit[posSplit.length - 4];
   const s3rdD = posSplit[posSplit.length - 6];
 
+  let isSingularCent = false;
   let centDigits = 0;
   if (commaSplit.length === 2) {
     const afterCommaCombined = commaSplit[1];
@@ -100,6 +107,7 @@ function splitGivenAmount(number) {
     if (!afterCommaSplit || !afterCommaSplit.length) return null;
     if (afterCommaSplit.length === 2 && afterCommaSplit[0] === '0') {
       centDigits = Number.parseInt(afterCommaSplit[1]) || 0;
+      if (centDigits === 1) isSingularCent = true;
     }
     else if (afterCommaSplit.length === 2) {
       centDigits = Number.parseInt(afterCommaCombined);
@@ -111,7 +119,9 @@ function splitGivenAmount(number) {
 
   return {
     cD: centDigits,
+    isSingularCent,
     f2D: Number.parseInt(f2D) || 0,
+    isSingularEuro: (Number.parseInt(f2D) === 1 && !_hasLeadingElements(f3rdD, s2D, s3rdD)),
     f3rdD: Number.parseInt(f3rdD) || _zeroIfHasNoLeadingElements(s2D, s3rdD),
     s2D: Number.parseInt(s2D) || _zeroIfHasNoLeadingElements(s3rdD),
     s3rdD: Number.parseInt(s3rdD) || null
@@ -119,6 +129,7 @@ function splitGivenAmount(number) {
 }
 
 module.exports = {
+  numberRegex,
   firstLetterUppercase,
   zeroToNineConverter,
   twoDigitConverter,

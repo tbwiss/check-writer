@@ -39,7 +39,35 @@ documentExampleInputTests.forEach(elmt => {
 const ownValidInputTests = [
   {
     input: 213, 
-    expected: "Two hundred thirteen Euros"
+    expected: "Two hundred thirteen Euros and zero cents"
+  },
+  {
+    input: 40, 
+    expected: "Forty Euros and zero cents"
+  },
+  {
+    input: 534213, 
+    expected: "Five hundred thirty four thousand two hundred thirteen Euros and zero cents"
+  },
+  {
+    input: 534299.23, 
+    expected: "Five hundred thirty four thousand two hundred ninety nine Euros and twenty three cents"
+  },
+  {
+    input: 0, 
+    expected: "Zero Euros and zero cents"
+  },
+  {
+    input: 0.0, 
+    expected: "Zero Euros and zero cents"
+  },
+  {
+    input: 0.01, 
+    expected: "Zero Euros and one cent"
+  },
+  {
+    input: 0.60, 
+    expected: "Zero Euros and sixty cents"
   },
 ];
 
@@ -80,31 +108,31 @@ zeroRoundedTests.forEach(elmt => {
 const notANumberTests = [
   {
     input: "Five",
-    expected: "Input not a number"
+    expected: "Invalid input type"
   },
   {
     input: "test",
-    expected: "Input not a number"
+    expected: "Invalid input type"
   },
   {
     input: "this should not work",
-    expected: "Input not a number"
+    expected: "Invalid input type"
   },
   {
     input: "Twenty five thousand one Euros and zero cents",
-    expected: "Input not a number"
+    expected: "Invalid input type"
   },
   {
     input: "a 1 cent piece",
-    expected: "Input not a number"
+    expected: "Invalid input type"
   },
   {
     input: "twelve 12",
-    expected: "Input not a number"
+    expected: "Invalid input type"
   },
   {
     input: "8 eight",
-    expected: "Input not a number"
+    expected: "Invalid input type"
   },
 ];
 
@@ -120,15 +148,15 @@ notANumberTests.forEach(elmt => {
 const outOfRangeTests = [
   {
     input: -0.01,
-    expected: "Number out of range"
+    expected: "Invalid input type"
   },
   {
     input: -1.32,
-    expected: "Number out of range"
+    expected: "Invalid input type"
   },
   {
     input: -123,
-    expected: "Number out of range"
+    expected: "Invalid input type"
   },
   {
     input: 999999.01,
