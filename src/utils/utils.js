@@ -8,6 +8,46 @@ function _zeroIfHasNoLeadingElements(ele1 = null, ele2 = null) {
   return (ele1 || ele2) ? 0 : null;
 }
 
+function _firstThousandsTrunk(eurosSplit) {
+  const tempF2D = eurosSplit[eurosSplit.length - 2] ||  null;
+  const f2D = tempF2D ? 
+    `${eurosSplit[eurosSplit.length - 2]}${eurosSplit[eurosSplit.length - 1]}`
+    : eurosSplit[eurosSplit.length - 1];
+  const f3rdD = eurosSplit[eurosSplit.length - 3];
+  return { f2D, f3rdD };
+}
+
+function _secondThousandsTrunk(eurosSplit) {
+  const tempS2D = eurosSplit[eurosSplit.length - 5] || null;
+  const s2D = tempS2D ? 
+    `${eurosSplit[eurosSplit.length - 5]}${eurosSplit[eurosSplit.length - 4]}`
+    : eurosSplit[eurosSplit.length - 4];
+  const s3rdD = eurosSplit[eurosSplit.length - 6];
+  return { s2D, s3rdD };
+}
+
+function _centsTrunk(centsTrunk) {
+  let isSingularCent = false;
+  let centDigits = 0;
+
+  if (centsTrunk) {
+    const centsSplit = centsTrunk.split('');
+    if (!centsSplit || !centsSplit.length) return null;
+
+    if (centsSplit.length === 2 && centsSplit[0] === '0') {
+      centDigits = Number.parseInt(centsSplit[1]) || 0;
+      if (centDigits === 1) isSingularCent = true;
+    }
+    else if (centsSplit.length === 2) {
+      centDigits = Number.parseInt(centsTrunk);
+    }
+    else if (centsSplit.length === 1) {
+      centDigits = Number.parseInt(`${centsSplit[0]}0`);
+    }
+  }
+  return { centDigits, isSingularCent };
+}
+
 function firstLetterUppercase(name) {
   if (!name) return '';
   return name.charAt(0).toUpperCase() + name.slice(1);
@@ -41,7 +81,7 @@ function tenToNineteenConverter(number) {
   return null;
 }
 
-function tenStepsConverter(number) {
+function tensConverter(number) {
   if (number === 2) return 'twenty';
   if (number === 3) return 'thirty';
   if (number === 4) return 'forty';
@@ -76,8 +116,8 @@ function twoDigitConverter(number) {
 
   if (firstDigit === 0) return zeroToNineConverter(secondDigit);
   if (firstDigit === 1) return tenToNineteenConverter(secondDigit);
-  if (secondDigit === 0) return tenStepsConverter(firstDigit);
-  return `${tenStepsConverter(firstDigit)} ${zeroToNineConverter(secondDigit)}`;
+  if (secondDigit === 0) return tensConverter(firstDigit);
+  return `${tensConverter(firstDigit)} ${zeroToNineConverter(secondDigit)}`;
 }
 
 function splitGivenAmount(number) {
@@ -88,43 +128,23 @@ function splitGivenAmount(number) {
   const commaSplit = input.toString().split('.');
   if (!commaSplit || !commaSplit.length) return null;
 
-  const posSplit = commaSplit[0].split('');
-  if (!posSplit || !posSplit.length || posSplit.length > 6) return null;
+  const eurosSplit = commaSplit[0].split('');
+  if (!eurosSplit || !eurosSplit.length || eurosSplit.length > 6) return null;
 
-  const tempF2D = posSplit[posSplit.length - 2] ||  null;
-  const f2D = tempF2D ? `${posSplit[posSplit.length - 2]}${posSplit[posSplit.length - 1]}` : posSplit[posSplit.length - 1];
-  const f3rdD = posSplit[posSplit.length - 3];
+  const centsTrunk = commaSplit[1] || '';
 
-  const tempS2D = posSplit[posSplit.length - 5] || null;
-  const s2D = tempS2D ? `${posSplit[posSplit.length - 5]}${posSplit[posSplit.length - 4]}` : posSplit[posSplit.length - 4];
-  const s3rdD = posSplit[posSplit.length - 6];
-
-  let isSingularCent = false;
-  let centDigits = 0;
-  if (commaSplit.length === 2) {
-    const afterCommaCombined = commaSplit[1];
-    const afterCommaSplit = afterCommaCombined.split('');
-    if (!afterCommaSplit || !afterCommaSplit.length) return null;
-    if (afterCommaSplit.length === 2 && afterCommaSplit[0] === '0') {
-      centDigits = Number.parseInt(afterCommaSplit[1]) || 0;
-      if (centDigits === 1) isSingularCent = true;
-    }
-    else if (afterCommaSplit.length === 2) {
-      centDigits = Number.parseInt(afterCommaCombined);
-    }
-    else if (afterCommaSplit.length === 1) {
-      centDigits = Number.parseInt(`${afterCommaSplit[0]}0`);
-    }
-  }
+  const { f2D, f3rdD } = _firstThousandsTrunk(eurosSplit);
+  const { s2D, s3rdD } = _secondThousandsTrunk(eurosSplit);
+  const { centDigits, isSingularCent } = _centsTrunk(centsTrunk)
 
   return {
     cD: centDigits,
     isSingularCent,
     f2D: Number.parseInt(f2D) || 0,
-    isSingularEuro: (Number.parseInt(f2D) === 1 && !_hasLeadingElements(f3rdD, s2D, s3rdD)),
     f3rdD: Number.parseInt(f3rdD) || _zeroIfHasNoLeadingElements(s2D, s3rdD),
     s2D: Number.parseInt(s2D) || _zeroIfHasNoLeadingElements(s3rdD),
-    s3rdD: Number.parseInt(s3rdD) || null
+    s3rdD: Number.parseInt(s3rdD) || null,
+    isSingularEuro: (Number.parseInt(f2D) === 1 && !_hasLeadingElements(f3rdD, s2D, s3rdD)),
   }
 }
 

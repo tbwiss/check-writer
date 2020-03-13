@@ -1,4 +1,4 @@
-const { parseToWordedOutput } = require('./checkWriter');
+const { parseToWordedOutput } = require('./src/checkWriter/checkWriter');
 
 function execute(number) {
   console.log('************************');

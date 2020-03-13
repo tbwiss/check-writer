@@ -4,7 +4,7 @@ const {
   zeroToNineConverter,
   twoDigitConverter,
   splitGivenAmount
-} = require('./utils');
+} = require('../utils/utils');
 
 const UPPER_THRESHOLD = 999999.00;
 
@@ -30,17 +30,30 @@ function parseToWordedOutput(number) {
     return "Number out of range";
   }
 
-  const { cD, f2D, f3rdD, s2D, s3rdD, isSingularCent, isSingularEuro } = splitGivenAmount(input);
+  const {
+    cD,
+    f2D,
+    f3rdD,
+    s2D,
+    s3rdD,
+    isSingularCent,
+    isSingularEuro
+  } = splitGivenAmount(input);
 
   const preHundredThousand = s3rdD ? `${zeroToNineConverter(s3rdD)} hundred `: "";
   const preThousand = s2D ? `${twoDigitConverter(s2D)} thousand `: "";
   const preHundred = f3rdD ? `${zeroToNineConverter(f3rdD)} hundred `: "";
-  const euroLiteral = `${preHundredThousand}${preThousand}${preHundred}${twoDigitConverter(f2D)}`;
+  const euroLiteral =
+    `${preHundredThousand}${preThousand}` +
+    `${preHundred}${twoDigitConverter(f2D)}`;
   const centLiteral = twoDigitConverter(cD);
 
   const euroLabel = isSingularEuro ? "Euro" : "Euros";
   const centLabel = isSingularCent ? "cent" : "cents";
-  return `${firstLetterUppercase(euroLiteral)} ${euroLabel} and ${centLiteral} ${centLabel}`
+  const result = 
+    `${firstLetterUppercase(euroLiteral)} ${euroLabel} and ` +
+    `${centLiteral} ${centLabel}`;
+  return result;
 }
 
 module.exports = {
