@@ -17,7 +17,7 @@ function run() {
 }
 
 const files = process.argv.slice(2);
-// expose test as global
+// INFO: expose test as global
 global.test = test;
 
 if (files && files.length) {

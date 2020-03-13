@@ -1,13 +1,22 @@
-Check-writer
+# Check-writer
 
-install npm and node if not already, link to install
+The application requires [Node.js](https://nodejs.org/) and [npm](https://nodejs.org/) to run.
+No external dependencies are used.
 
-was written in TDD manner
+The application was developed in a TDD approach.
+The test files end with `.spec.js` and can be found in this repo.
 
-link to the tests and test suit
+To execute the tests run:
+```sh
+$ npm run test
+```
 
-run test suit like so
-
-run an own example like so 
-(f.e. 2342.34)
-
+To "check-write" an arbitrary number:
+```sh
+$ node main.js <your number>
+```
+F.e.
+```sh
+$ node main.js 2564.34
+```
+OBS! A valid input number must be between 0 and 999,999.00

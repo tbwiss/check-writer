@@ -1,15 +1,9 @@
 const assert = require("assert");
 const { parseToWordedOutput } = require("./checkWriter");
 
-// out of range (-1, 1000000)
-// .0 and .00 are all zero  (float or integer)
-// example tests from doc
-// no number tests
-// the 'worded output' as input
-
 const documentExampleInputTests = [
   {
-    input: 112.10,  // TODO: formatter erases trailing zero!
+    input: 112.10,
     expected: "One hundred twelve Euros and ten cents"
   },
   {
@@ -28,7 +22,7 @@ const documentExampleInputTests = [
 ];
 
 documentExampleInputTests.forEach(elmt => {
-  test(`Examples from the exercise document, ${elmt.input}`, () => {
+  test(`Examples from the exercise document, i: ${elmt.input}; e: ${elmt.expected}`, () => {
     assert.equal(parseToWordedOutput(elmt.input), elmt.expected);
   });
 });
@@ -54,6 +48,10 @@ const ownValidInputTests = [
     expected: "Five hundred thirty four thousand two hundred ninety nine Euros and twenty three cents"
   },
   {
+    input: 98.01, 
+    expected: "Ninety eight Euros and one cent"
+  },
+  {
     input: 0, 
     expected: "Zero Euros and zero cents"
   },
@@ -72,7 +70,7 @@ const ownValidInputTests = [
 ];
 
 ownValidInputTests.forEach(elmt => {
-  test(`Own valid inputs, ${elmt.input}`, () => {
+  test(`Own valid inputs, i: ${elmt.input}; e: ${elmt.expected}`, () => {
     assert.equal(parseToWordedOutput(elmt.input), elmt.expected);
   });
 });
@@ -90,19 +88,21 @@ const zeroRoundedTests = [
     expected: "Twenty five thousand one Euros and zero cents"
   },
   {
-    input: 25001.00,    // TODO: formatter erases trailing zero!
+    input: 25001.00,
     expected: "Twenty five thousand one Euros and zero cents"
-  }
+  },
 ];
 
 zeroRoundedTests.forEach(elmt => {
-  test(`Zero's getting rounded, ${elmt.input}`, () => {
+  test(`Zero's getting rounded, i: ${elmt.input}; e: ${elmt.expected}`, () => {
     assert.equal(parseToWordedOutput(elmt.input), elmt.expected);
   });
 });
 
 
-// TODO: split this up in separate files!
+
+
+
 
 
 const notANumberTests = [
@@ -137,7 +137,7 @@ const notANumberTests = [
 ];
 
 notANumberTests.forEach(elmt => {
-  test(`Not a number, ${elmt.input}`, () => {
+  test(`Not a number, i: ${elmt.input}; e: ${elmt.expected}`, () => {
     assert.equal(parseToWordedOutput(elmt.input), elmt.expected);
   });
 });
@@ -159,6 +159,14 @@ const outOfRangeTests = [
     expected: "Invalid input type"
   },
   {
+    input: 0.001,
+    expected: "Invalid input type"
+  },
+  {
+    input: 0.0009,
+    expected: "Invalid input type"
+  },
+  {
     input: 999999.01,
     expected: "Number out of range"
   },
@@ -173,7 +181,7 @@ const outOfRangeTests = [
 ];
 
 outOfRangeTests.forEach(elmt => {
-  test(`Not a number, ${elmt.input}`, () => {
+  test(`Not a number, i: ${elmt.input}; e: ${elmt.expected}`, () => {
     assert.equal(parseToWordedOutput(elmt.input), elmt.expected);
   });
 });
@@ -201,7 +209,7 @@ const specialCasesTest = [
 ];
 
 specialCasesTest.forEach(elmt => {
-  test(`Special cases, ${elmt.input}`, () => {
+  test(`Special cases, i: ${elmt.input}; e: ${elmt.expected}`, () => {
     assert.equal(parseToWordedOutput(elmt.input), elmt.expected);
   });
 });

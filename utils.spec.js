@@ -198,6 +198,18 @@ const splitGivenAmountTests = [
     }
   },
   {
+    input: 0.001,  
+    expected: {
+      cD: 0,
+      isSingularCent: false,
+      f2D: 0,
+      isSingularEuro: false,
+      f3rdD: null,
+      s2D: null,
+      s3rdD: null
+    }
+  },
+  {
     input: 0.07,  
     expected: {
       cD: 7,
