@@ -22,5 +22,6 @@ F.e.
 $ node main.js 2564.34
 ```
 
-OBS! A valid input number must be between 0 and 999999.00 
+OBS! A valid input number must be between 0 and 999999.00
+
 A message is displayed in case the number is outside of this range.
