@@ -47,6 +47,14 @@ const specialCasesTest = [
     expected: "Invalid input type"
   },
   {
+    input: "5463;34",
+    expected: "Invalid input type"
+  },
+  {
+    input: "0;02",
+    expected: "Invalid input type"
+  },
+  {
     input: null,
     expected: "Invalid input type"
   },

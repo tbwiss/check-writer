@@ -19,6 +19,10 @@ const ownValidInputTests = [
     expected: "Five hundred thirty four thousand two hundred ninety nine Euros and twenty three cents"
   },
   {
+    input: 7834.46, 
+    expected: "Seven thousand eight hundred thirty four Euros and forty six cents"
+  },
+  {
     input: 98.01, 
     expected: "Ninety eight Euros and one cent"
   },

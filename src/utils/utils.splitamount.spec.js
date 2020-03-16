@@ -343,6 +343,10 @@ const splitGivenAmountTests = [
     expected: null
   },
   {
+    input: 1000001,  
+    expected: null
+  },
+  {
     input: null,  
     expected: null
   },

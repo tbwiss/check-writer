@@ -3,6 +3,10 @@ const { twoDigitConverter } = require("./utils");
 
 const twoDigitConverterTests = [
   {
+    input: -1,  
+    expected: null
+  },
+  {
     input: 0,  
     expected: "zero"
   },
@@ -25,6 +29,10 @@ const twoDigitConverterTests = [
   {
     input: 11,  
     expected: "eleven"
+  },
+  {
+    input: 12,  
+    expected: "twelve"
   },
   {
     input: 14,  
@@ -63,11 +71,19 @@ const twoDigitConverterTests = [
     expected: "eighty eight"
   },
   {
+    input: 98,  
+    expected: "ninety eight"
+  },
+  {
     input: 99,  
     expected: "ninety nine"
   },
   {
     input: 100,  
+    expected: null
+  },
+  {
+    input: 101,  
     expected: null
   },
   {

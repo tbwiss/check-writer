@@ -11,4 +11,5 @@ const arg = process.argv.slice(2);
 if (!arg || !arg.length) {
   return console.error('No arg specified, aborting');
 }
+
 execute(arg[0]);

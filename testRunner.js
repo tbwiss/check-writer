@@ -17,13 +17,14 @@ function run() {
 }
 
 const files = process.argv.slice(2);
-// INFO: expose test as global
+
 global.test = test;
 
 if (files && files.length) {
   files.forEach(file => require(file));
 } else {
-  console.error('No test files found');
+  console.error('No test files found, aborting');
+  return;
 }
 
 run();

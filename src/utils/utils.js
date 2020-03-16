@@ -45,12 +45,13 @@ function _centsTrunk(centsTrunk) {
       centDigits = Number.parseInt(`${centsSplit[0]}0`);
     }
   }
+
   return { centDigits, isSingularCent };
 }
 
-function firstLetterUppercase(name) {
-  if (!name) return '';
-  return name.charAt(0).toUpperCase() + name.slice(1);
+function firstLetterUppercase(element) {
+  if (!element) return '';
+  return element.charAt(0).toUpperCase() + element.slice(1);
 }
 
 function zeroToNineConverter(number) {

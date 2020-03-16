@@ -43,6 +43,7 @@ function parseToWordedOutput(number) {
   const hundredThousandTrunk = s3rdD ? `${zeroToNineConverter(s3rdD)} hundred `: "";
   const thousandTrunk = s2D ? `${twoDigitConverter(s2D)} thousand `: "";
   const hundredTrunk = f3rdD ? `${zeroToNineConverter(f3rdD)} hundred `: "";
+  
   const euroLiteral =
     `${hundredThousandTrunk}${thousandTrunk}` +
     `${hundredTrunk}${twoDigitConverter(f2D)}`;
