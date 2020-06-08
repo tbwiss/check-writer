@@ -31,23 +31,23 @@ function parseToWordedOutput(number) {
   }
 
   const {
-    cD,
-    f2D,
-    f3rdD,
-    s2D,
-    s3rdD,
+    centDigits,
+    firstHundreds,
+    firstThousands,
+    secondHundreds,
+    secondThousands,
     isSingularCent,
     isSingularEuro
   } = splitGivenAmount(input);
 
-  const hundredThousandTrunk = s3rdD ? `${zeroToNineConverter(s3rdD)} hundred `: "";
-  const thousandTrunk = s2D ? `${twoDigitConverter(s2D)} thousand `: "";
-  const hundredTrunk = f3rdD ? `${zeroToNineConverter(f3rdD)} hundred `: "";
+  const hundredThousandTrunk = secondThousands ? `${zeroToNineConverter(secondThousands)} hundred `: "";
+  const thousandTrunk = secondHundreds ? `${twoDigitConverter(secondHundreds)} thousand `: "";
+  const hundredTrunk = firstThousands ? `${zeroToNineConverter(firstThousands)} hundred `: "";
   
   const euroLiteral =
     `${hundredThousandTrunk}${thousandTrunk}` +
-    `${hundredTrunk}${twoDigitConverter(f2D)}`;
-  const centLiteral = twoDigitConverter(cD);
+    `${hundredTrunk}${twoDigitConverter(firstHundreds)}`;
+  const centLiteral = twoDigitConverter(centDigits);
 
   const euroLabel = isSingularEuro ? "Euro" : "Euros";
   const centLabel = isSingularCent ? "cent" : "cents";

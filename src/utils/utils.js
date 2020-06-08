@@ -1,29 +1,29 @@
-const numberRegex = new RegExp('^[0-9]{0,6}[.]?[0-9]{0,2}$');
+const numberRegex = new RegExp('^[0-9]{1,6}[.]?[0-9]{0,2}$');
 
-function _hasLeadingElements(ele1 = null, ele2 = null, ele3 = null) {
-  return !!(ele1 || ele2 || ele3);
+function _hasLeadingElements(elmt1 = null, elmt2 = null, elmt3 = null) {
+  return !!(elmt1 || elmt2 || elmt3);
 }
 
-function _zeroIfHasNoLeadingElements(ele1 = null, ele2 = null) {
-  return (ele1 || ele2) ? 0 : null;
+function _zeroIfHasNoLeadingElements(elmt1 = null, elmt2 = null) {
+  return (elmt1 || elmt2) ? 0 : null;
 }
 
 function _firstThousandsTrunk(eurosSplit) {
-  const tempF2D = eurosSplit[eurosSplit.length - 2] ||  null;
-  const f2D = tempF2D ? 
+  const tempFirstHundreds = eurosSplit[eurosSplit.length - 2] ||  null;
+  const firstHundreds = tempFirstHundreds ?
     `${eurosSplit[eurosSplit.length - 2]}${eurosSplit[eurosSplit.length - 1]}`
     : eurosSplit[eurosSplit.length - 1];
-  const f3rdD = eurosSplit[eurosSplit.length - 3];
-  return { f2D, f3rdD };
+  const firstThousands = eurosSplit[eurosSplit.length - 3];
+  return { firstHundreds, firstThousands };
 }
 
 function _secondThousandsTrunk(eurosSplit) {
-  const tempS2D = eurosSplit[eurosSplit.length - 5] || null;
-  const s2D = tempS2D ? 
+  const tempSecondHundreds = eurosSplit[eurosSplit.length - 5] || null;
+  const secondHundreds = tempSecondHundreds ?
     `${eurosSplit[eurosSplit.length - 5]}${eurosSplit[eurosSplit.length - 4]}`
     : eurosSplit[eurosSplit.length - 4];
-  const s3rdD = eurosSplit[eurosSplit.length - 6];
-  return { s2D, s3rdD };
+  const secondThousands = eurosSplit[eurosSplit.length - 6];
+  return { secondHundreds, secondThousands };
 }
 
 function _centsTrunk(centsTrunk) {
@@ -35,14 +35,14 @@ function _centsTrunk(centsTrunk) {
     if (!centsSplit || !centsSplit.length) return null;
 
     if (centsSplit.length === 2 && centsSplit[0] === '0') {
-      centDigits = Number.parseInt(centsSplit[1]) || 0;
+      centDigits = Number.parseInt(centsSplit[1], 10) || 0;
       if (centDigits === 1) isSingularCent = true;
     }
     else if (centsSplit.length === 2) {
-      centDigits = Number.parseInt(centsTrunk);
+      centDigits = Number.parseInt(centsTrunk, 10);
     }
     else if (centsSplit.length === 1) {
-      centDigits = Number.parseInt(`${centsSplit[0]}0`);
+      centDigits = Number.parseInt(`${centsSplit[0]}0`, 10);
     }
   }
 
@@ -107,10 +107,10 @@ function twoDigitConverter(number) {
   let secondDigit = NaN;
   if (digits.length <= 1) {
     firstDigit = 0;
-    secondDigit = Number.parseInt(digits[0]);
+    secondDigit = Number.parseInt(digits[0], 10);
   } else {
-    firstDigit = Number.parseInt(digits[0]);
-    secondDigit =  Number.parseInt(digits[1]);
+    firstDigit = Number.parseInt(digits[0], 10);
+    secondDigit =  Number.parseInt(digits[1], 10);
   }
 
   if (Number.isNaN(firstDigit) || Number.isNaN(secondDigit)) return null;
@@ -134,18 +134,18 @@ function splitGivenAmount(number) {
 
   const centsTrunk = commaSplit[1] || '';
 
-  const { f2D, f3rdD } = _firstThousandsTrunk(eurosSplit);
-  const { s2D, s3rdD } = _secondThousandsTrunk(eurosSplit);
+  const { firstHundreds, firstThousands } = _firstThousandsTrunk(eurosSplit);
+  const { secondHundreds, secondThousands } = _secondThousandsTrunk(eurosSplit);
   const { centDigits, isSingularCent } = _centsTrunk(centsTrunk)
 
   return {
-    cD: centDigits,
+    centDigits,
     isSingularCent,
-    f2D: Number.parseInt(f2D) || 0,
-    f3rdD: Number.parseInt(f3rdD) || _zeroIfHasNoLeadingElements(s2D, s3rdD),
-    s2D: Number.parseInt(s2D) || _zeroIfHasNoLeadingElements(s3rdD),
-    s3rdD: Number.parseInt(s3rdD) || null,
-    isSingularEuro: (Number.parseInt(f2D) === 1 && !_hasLeadingElements(f3rdD, s2D, s3rdD)),
+    firstHundreds: Number.parseInt(firstHundreds, 10) || 0,
+    firstThousands: Number.parseInt(firstThousands, 10) || _zeroIfHasNoLeadingElements(secondHundreds, secondThousands),
+    secondHundreds: Number.parseInt(secondHundreds, 10) || _zeroIfHasNoLeadingElements(secondThousands),
+    secondThousands: Number.parseInt(secondThousands, 10) || null,
+    isSingularEuro: (Number.parseInt(firstHundreds, 10) === 1 && !_hasLeadingElements(firstThousands, secondHundreds, secondThousands)),
   }
 }
 
